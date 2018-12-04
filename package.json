@@ -1,0 +1,22 @@
+{
+  "name": "cs5610_fall_2018_render_server_pick_flick",
+  "version": "1.0.0",
+  "description": "Server side code for Render group project (Pick Flick)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prerna-p/CS5610_fall_2018_render_server_pick_flick.git"
+  },
+  "keywords": [
+    "movie"
+  ],
+  "author": "prerna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prerna-p/CS5610_fall_2018_render_server_pick_flick/issues"
+  },
+  "homepage": "https://github.com/prerna-p/CS5610_fall_2018_render_server_pick_flick#readme"
+}
