@@ -53,4 +53,8 @@ function getSession(req, res) {
     res.send(value);
 }
 
+    /* services*/
+
+require('./data/services/admin.service.server')(app);
+
 
