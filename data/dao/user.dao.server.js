@@ -1,24 +1,41 @@
 const userModel = require('../models/user/user.model.server');
 
 
-function createUser(){
-
+function createUser(user){
+    return userModel.create(user);
 }
 
 function findAllUsers(){
-
+    return userModel.find();
 }
 
-function deleteUser(){
-
+function deleteUser(userId){
+    return userModel.deleteOne({_id:userId});
 }
 
-function updateUser(){
+function updateUser(userId,user){
+    return userModel.updateOne({_id: userId},user);
 
 }
 
 function findAllUserFavMovies(){
 
+    return userModel.find({type: 'Fan'}).
+    populate('favourites').exec();
+}
+
+function findUserByUserName(username){
+    return userModel.findOne({username:username});
+
+}
+
+function findUserById(id){
+    return userModel.findById(id);
+
+}
+
+function findUserByCredentials(cred){
+    return userModel.findOne(cred);
 }
 
 
@@ -30,8 +47,7 @@ module.exports = {
     deleteUser,
     updateUser,
     findAllUserFavMovies,
-
-
-
-
+    findUserByUserName,
+    findUserById,
+    findUserByCredentials
 };

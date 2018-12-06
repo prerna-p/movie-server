@@ -55,24 +55,63 @@ module.exports = app =>{
     }
     
     function profile(req,res){
-        
+        userDao.findUserById(req.session['userId']).
+            then(user => res.send(user));
     }
     
-    function updateProfile(){
-        
+    function updateProfile(req,res){
+        let user = req.body;
+        userDao.findUserById(req.session['currentUser']._id).then(response =>{
+            if(response.username===user.username){
+                userDao.updateUser(req.session['currentUser']._id,user).then(
+                    response=> res.sendStatus(200)
+                );
+            }
+            else{
+                userDao.findUserByUserName(user.username).then(response => {
+                    if(response===null) {
+                        userDao.updateUser(req.session['currentUser']._id,user)
+                            .then(response=> res.sendStatus(200)
+                            );
+                    }
+                    else{
+                        res.sendStatus(500);
+                    }
+                })
+            }
+        })
     }
     
-    function findAllUsers() {
-        
+    function findAllUsers(req,res) {
+        userDao.findAllUsers().then(
+            users => res.send(users)
+        )
     }
     
-    function findUserById() {
-        
+    function findUserById(req,res) {
+        userDao.findUserById(req.session['userId']).then(
+            (user) => res.send(user)
+        )
     }
     
-    function createUser() {
+    function createUser(req,res) {
+        let newUser = req.body;
+        userDao.findUserByUserName(newUser.username).then(
+            (response) =>{
+                if(response === null){
+                    userDao.createUser(newUser).then(
+                        (user) =>{
+                            req.send['currentUser'] = user;
+                            res.send(user);
+                        }
+                    )
+                }
+                else {
+                    res.sendStatus(500);
+                }
+            }
+        )
 
     }
-
 
 };
