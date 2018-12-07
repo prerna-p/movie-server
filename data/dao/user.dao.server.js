@@ -38,7 +38,7 @@ function findUserByCredentials(cred){
 }
 
 function findAllUserFavMoviesById(id){
-    return userModel.findOne({_id: id}, {favorites: 1}).populate('favorites')
+    return userModel.findOne({_id: id}, {favourites: 1}).populate('favourites')
 }
 
 function findAllEventsByActorId(actorId){
@@ -58,6 +58,23 @@ function findAllEventsOfUser(user){
     return userModel.findOne({_id: user._id}, {events: 1}).populate('events')
 }
 
+function findAllFavouriteMoviesOfUser(user){
+    return userModel.findOne({_id: user._id}, {favourites: 1}).populate('favourites')
+}
+
+function findAllWatchlistMoviesOfUser(user){
+    return userModel.findOne({_id: user._id}, {watchList: 1}).populate('watchList')
+}
+
+function deleteUserFavouriteMovie(id,movieId){
+    return userModel.update({_id: id}, {$pull: {favorites: movieId}})
+}
+
+function deleteUserWatchlistMovie(id,movieId){
+    return userModel.update({_id: id}, {$pull: {watchList: movieId}})
+
+}
+
 
 
 
@@ -75,6 +92,10 @@ module.exports = {
     updateUserEvent,
     deleteEventofUser,
     findAllEventsOfUser,
+    findAllFavouriteMoviesOfUser,
+    findAllWatchlistMoviesOfUser,
+    deleteUserFavouriteMovie,
+    deleteUserWatchlistMovie
 
 
 };

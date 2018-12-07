@@ -9,5 +9,5 @@ const criticSchema = mongoose.Schema({
     reviewer:   {type: mongoose.Schema.Types.Object, ref: 'UserModel'},
     createdDate: Date
 
-}, {collection: 'critic'});
+});
 module.exports = criticSchema;
