@@ -38,7 +38,7 @@ module.exports = app =>{
         let id = req.params['userId']
         userDao.deleteUser(id)
             .then(() => recommendationDao.deleteRec(id)
-                .then(() => fanDao.deletFollower(id)
+                .then(() => fanDao.delFollower(id)
                     .then(() => fanDao.deleteFan(id)
                         .then(() => likeDao.deleteLike(id))
                     )
