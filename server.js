@@ -1,6 +1,6 @@
-var express = require('express')
-var app = express()
-var session = require('express-session')
+var express = require('express');
+var app = express();
+var session = require('express-session');
 
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -10,12 +10,9 @@ require('./data/db')()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// require('./data/services/ServiceClient')(app);
-
-app.listen(4000);
 
 const client_heroku_url = "";
-const client_local_url = "http://localhost:3000";
+const client_local_url = "http://localhost:4000";
 
 
 app.use(function (req, res, next) {
@@ -28,6 +25,8 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Credentials", "true");
     next();
 });
+
+app.get('/' , (req ,res) => res.send("Server is up"));
 
     /* set and get session */
 
@@ -56,5 +55,13 @@ function getSession(req, res) {
     /* services*/
 
 require('./data/services/admin.service.server')(app);
+require('./data/services/user.service.server')(app);
+require('./data/services/critic.service.server')(app);
+require('./data/services/event.service.server')(app);
+require('./data/services/fan.service.server')(app);
+//require('./data/services/mapi.service.server')(app);
+require('./data/services/movie.service.server')(app);
 
+
+app.listen(process.env.PORT || 4000);
 
