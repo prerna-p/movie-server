@@ -31,7 +31,6 @@ function findUserByUserName(username){
 
 function findUserById(id){
     return userModel.findById(id);
-
 }
 
 function findUserByCredentials(cred){
@@ -39,9 +38,7 @@ function findUserByCredentials(cred){
 }
 
 function findAllUserFavMoviesById(id){
-
     return userModel.findOne({_id: id}, {favorites: 1}).populate('favorites')
-
 }
 
 function findAllEventsByActorId(actorId){
@@ -49,7 +46,17 @@ function findAllEventsByActorId(actorId){
 
 }
 
+function updateUserEvent(id,event){
+    return userModel.update({_id: id}, {$push: {events: event._id}})
+}
 
+function deleteEventofUser(id,event){
+    return userModel.update({_id: id}, {$pull: {events: event._id}})
+}
+
+function findAllEventsOfUser(user){
+    return userModel.findOne({_id: user._id}, {events: 1}).populate('events')
+}
 
 
 
@@ -65,6 +72,9 @@ module.exports = {
     findUserByCredentials,
     findAllUserFavMoviesById,
     findAllEventsByActorId,
+    updateUserEvent,
+    deleteEventofUser,
+    findAllEventsOfUser,
 
 
 };
