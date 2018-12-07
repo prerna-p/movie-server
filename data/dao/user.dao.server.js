@@ -38,6 +38,19 @@ function findUserByCredentials(cred){
     return userModel.findOne(cred);
 }
 
+function findAllUserFavMoviesById(id){
+
+    return userModel.findOne({_id: id}, {favorites: 1}).populate('favorites')
+
+}
+
+function findAllEventsByActorId(actorId){
+    return userModel.findOne({_id: actorId}, {events: 1}).populate('events')
+
+}
+
+
+
 
 
 
@@ -49,5 +62,9 @@ module.exports = {
     findAllUserFavMovies,
     findUserByUserName,
     findUserById,
-    findUserByCredentials
+    findUserByCredentials,
+    findAllUserFavMoviesById,
+    findAllEventsByActorId,
+
+
 };
