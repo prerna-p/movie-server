@@ -5,7 +5,7 @@ function createEvent(event){
 }
 
 function deleteEvent(eventId) {
-    return eventModel.remove(eventId);
+    return eventModel.remove({_id:eventId});
 }
 
 function updateEvent(event){

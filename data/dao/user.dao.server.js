@@ -67,7 +67,7 @@ function findAllWatchlistMoviesOfUser(user){
 }
 
 function deleteUserFavouriteMovie(id,movieId){
-    return userModel.update({_id: id}, {$pull: {favorites: movieId}})
+    return userModel.update({_id: id}, {$pull: {favourites: movieId}})
 }
 
 function deleteUserWatchlistMovie(id,movieId){

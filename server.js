@@ -11,13 +11,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-const client_heroku_url = "";
+const client_heroku_url = "https://desolate-retreat-56126.herokuapp.com";
 const client_local_url = "http://localhost:4000";
 
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin",
-        client_local_url);
+        client_heroku_url);
     res.header("Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods",
@@ -59,7 +59,7 @@ require('./data/services/user.service.server')(app);
 require('./data/services/critic.service.server')(app);
 require('./data/services/event.service.server')(app);
 require('./data/services/fan.service.server')(app);
-//require('./data/services/mapi.service.server')(app);
+require('./data/services/mapi.service.server')(app);
 require('./data/services/movie.service.server')(app);
 
 

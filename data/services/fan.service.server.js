@@ -7,7 +7,6 @@ module.exports = app =>{
     app.get('/api/actor/events/:actorId', findAllEventsByActorId);
     app.get('/api/fan/following', findFollowedFansForUser);
 
-
     const fanDao = require('../dao/fan.dao.server');
     const userDao = require('../dao/user.dao.server');
 
@@ -51,7 +50,6 @@ module.exports = app =>{
     }
 
     function findAllEventsByActorId(req,res) {
-
         userDao.findAllEventsByActorId(req.params['actorId'])
             .then(result =>
                 res.json(result));
@@ -68,9 +66,6 @@ module.exports = app =>{
                 res.send(resultFans);
             })
     }
-
-
-
 
 
 };

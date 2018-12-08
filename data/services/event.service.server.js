@@ -1,6 +1,5 @@
 module.exports = app =>{
 
-
     app.post('/api/event', createEvent);
     app.put('/api/event', updateEvent);
     app.delete('/api/event/:eventId', deleteEvent);
@@ -15,7 +14,7 @@ module.exports = app =>{
         eventDao.createEvent(req.body)
             .then(response => {
                 userDao.updateUserEvent(user._id, response)
-                    .then(response1 => res.sendStatus(200))
+                    .then(result => res.sendStatus(200))
             });
     }
     
@@ -28,7 +27,7 @@ module.exports = app =>{
     function deleteEvent(req,res) {
         let eventId = req.params['eventId'];
         let user = req.session.currentUser;
-        eventDao.deleteEvent({_id: eventId})
+        eventDao.deleteEvent(eventId)
             .then(() => {
                 userDao.deleteEventofUser({_id: user._id}, {_id: eventId})
                     .then(() => res.sendStatus(200))
@@ -39,7 +38,7 @@ module.exports = app =>{
     function findAllEventsOfUser(req,res) {
         let user = req.session.currentUser;
         userDao.findAllEventsOfUser(user)
-            .then(response => res.json(response));
+            .then(events => res.json(events));
 
     }
 };

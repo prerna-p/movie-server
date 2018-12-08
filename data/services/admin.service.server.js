@@ -4,8 +4,8 @@ module.exports = app =>{
     app.delete('/api/admin/user/:userId',deleteUser);
     app.post('/api/admin/user',updateUser);
     app.get('/api/admin/user/favMovies', findAllUsersFavMovies);
-    app.get('/api/admin/allFavoriteMovies', findAllFavouriteMovies);
-    app.delete('/api/admin/favoriteMovie/:favMovieId', deleteFavouriteMovie);
+    app.get('/api/admin/allFavouriteMovies', findAllFavouriteMovies);
+    app.delete('/api/admin/favouriteMovie/:favMovieId', deleteFavouriteMovie);
 
     const userDao = require('../dao/user.dao.server');
     const likeDao = require('../dao/like.dao.server');

@@ -1,8 +1,8 @@
 module.exports = app =>{
 
-    app.post('/api/movie/:movieId/favorite', favouriteMovies);
+    app.post('/api/movie/:movieId/favourite', favouriteMovies);
     app.post('/api/movie/:movieId/watchlist', watchlistMovies);
-    app.get('/api/movie/favorites', findFavouriteMovies);
+    app.get('/api/movie/favourites', findFavouriteMovies);
     app.get('/api/movie/watchlist', findWatchlistMovies);
     app.delete('/api/dislikeMovie', dislikeMovie);
     app.delete('/api/user/:userId/movie/:movieId/dislike', deleteMovieForUser);
@@ -24,7 +24,7 @@ module.exports = app =>{
             release_date: movie.release_date,
             poster_path: (movie.poster_path.length !== 0 ? movie.poster_path : '')
         };
-        let favorite;
+        let favourite;
         if (user === undefined)
             res.sendStatus(500);
         else
@@ -33,15 +33,15 @@ module.exports = app =>{
                     if (queryResult === null) {
                         movieDao.createMovie(newMovie)
                             .then((movie) => {
-                                user.favorites.push(movie);
+                                user.favourites.push(movie);
                                 userDao.updateUser(userId, user)
-                                    .then(() => res.json({favorite: favorite}));
+                                    .then(() => res.json({favourite: favourite}));
                             })
                     }
                     else {
-                        user.favorites.push(queryResult._doc);
+                        user.favourites.push(queryResult._doc);
                         userDao .updateUser(userId, user)
-                            .then(() => res.json({favorite: favorite}));
+                            .then(() => res.json({favourite: favourite}));
                     }
                 })
     }
