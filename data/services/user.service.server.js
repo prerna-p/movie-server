@@ -127,7 +127,8 @@ module.exports = app =>{
                 if(response === null){
                     userDao.createUser(newUser).then(
                         (user) =>{
-                            req.send['currentUser'] = user;
+                            //req.send['currentUser'] = user;
+                            req.session['currentUser']= user;
                             res.send(user);
                         }
                     )
