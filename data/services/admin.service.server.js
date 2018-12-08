@@ -29,7 +29,7 @@ module.exports = app =>{
     }
 
     function deleteUser(req,res){
-        let id = req.params['userId']
+        let id = req.params['userId'];
         userDao.deleteUser(id)
             .then(() => recommendationDao.deleteRec(id)
                 .then(() => fanDao.delFollower(id)
@@ -43,17 +43,12 @@ module.exports = app =>{
     function updateUser(req,res){
         let user = req.body;
         if (user._id === undefined) {
-            createUser(user)
-                .then(() => res.sendStatus(201))
+            userDao.createUser(user).then(() =>
+                res.sendStatus(201))
         }else{
             userDao.updateUser(user._id,user)
                 .then(result => res.sendStatus(200));
         }
-    }
-
-
-    function createUser(user){
-        userDao.createUser(user);
     }
 
 
