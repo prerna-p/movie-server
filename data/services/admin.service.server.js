@@ -1,9 +1,8 @@
 module.exports = app =>{
 
-    app.post('/api/admin/user',createUser);
     app.get('/api/admin/user',findAllUsers);
     app.delete('/api/admin/user/:userId',deleteUser);
-    app.put('/api/admin/user/:userId',updateUser);
+    app.post('/api/admin/user/:userId',updateUser);
     app.get('/api/admin/user/favMovies', findAllUserFavMovies);
     app.get('/api/admin/allFavoriteMovies', findAllFavouriteMovies);
     app.delete('/api/admin/favoriteMovie/:favMovieId', deleteFavouriteMovie);
@@ -13,11 +12,6 @@ module.exports = app =>{
     const fanDao = require('../dao/fan.dao.server');
     const recommendationDao = require('../dao/recommendation.dao.server');
 
-    function createUser(req,res){
-        userDao.createUser(req.body).then(user =>
-            res.send(user))
-
-    }
 
     function findAllUsers(req,res){
         let user = req.session.currentUser;
@@ -47,11 +41,21 @@ module.exports = app =>{
     }
 
     function updateUser(req,res){
-        userDao.updateUser(req.body,req.params['userId'])
-            .then(result => {
-                res.sendStatus(200)
-            });
+        let user = req.body;
+        if (user._id === undefined) {
+            createUser(user)
+                .then(() => res.sendStatus(201))
+        }else{
+            userDao.updateUser(user._id,user)
+                .then(result => res.sendStatus(200));
+        }
     }
+
+
+    function createUser(user){
+        userDao.createUser(user);
+    }
+
 
     function findAllUserFavMovies(req,res){
         let user = req.session.currentUser;
