@@ -2,7 +2,7 @@ const recommendationModel = require('../models/recommendation/recommendation.mod
 
 
 function deleteRec(id){
-    return movieRecommendedModel.remove({user:id})
+    return recommendationModel.remove({user:id})
 }
 module.exports = {
     deleteRec

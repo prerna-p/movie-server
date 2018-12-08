@@ -68,8 +68,7 @@ module.exports = app =>{
     }
 
     function findAllFavouriteMovies(req,res){
-        likeDao.findAllFavouriteMovies()
-            .then((result) =>
+        likeDao.findAllFavouriteMovies().then((result) =>
                 res.json(result))
 
     }
