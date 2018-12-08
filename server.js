@@ -12,12 +12,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 const client_heroku_url = "http://desolate-retreat-56126.herokuapp.com";
-const client_local_url = "http://localhost:4000";
+const client_local_url = "http://localhost:3000";
 
 
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin",
-        client_heroku_url);
+    res.header("Access-Control-Allow-Origin", client_local_url);
     res.header("Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods",
