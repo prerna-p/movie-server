@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-const client_heroku_url = "https://desolate-retreat-56126.herokuapp.com";
+const client_heroku_url = "http://desolate-retreat-56126.herokuapp.com";
 const client_local_url = "http://localhost:4000";
 
 
