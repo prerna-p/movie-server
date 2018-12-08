@@ -18,7 +18,7 @@ function updateUser(userId,user){
 
 }
 
-function findAllUserFavMovies(){
+function findAllUsersFavMovies(){
 
     return userModel.find({type: 'Fan'}).
     populate('favourites').exec();
@@ -83,7 +83,7 @@ module.exports = {
     findAllUsers,
     deleteUser,
     updateUser,
-    findAllUserFavMovies,
+    findAllUsersFavMovies,
     findUserByUserName,
     findUserById,
     findUserByCredentials,

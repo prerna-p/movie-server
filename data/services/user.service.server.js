@@ -6,30 +6,56 @@ module.exports = app =>{
     app.get('/api/profile', profile);
     app.put('/api/profile', updateProfile);
     app.get('/api/user', findAllUsers);
+    app.get('/api/login',isLoggedIn);
+    app.get('/api/login/isAdmin',isAdmin);
     app.get('/api/user/:userId', findUserById);
     app.post('/api/user', createUser);
 
 
     const userDao = require('../dao/user.dao.server');
 
+    function isLoggedIn(req,res) {
+        if(req.session['currentUser']===undefined){
+            res.sendStatus(500);
+        }
+        else{
+            res.sendStatus(200);
+        }
+    }
+
+    function isAdmin(req,res){
+        if(req.session['currentUser']===undefined){
+            res.sendStatus(501);
+        }
+        else{
+            const id = req.session['currentUser']._id;
+            userDao.findUserById(id).then(
+                response =>{
+                    if(response.type==='Admin'){
+                        res.sendStatus(200);
+                    }
+                    else{
+                        res.sendStatus(500);
+                    }
+                });
+        }
+    }
+
     function register(req,res){
         let newUser = req.body;
-        userDao.findUserByUserName(newUser.username).then(
-            (response) => {
+        userDao.findUserByUserName(newUser.username)
+            .then(response => {
                 if(response=== null){
-                    userDao.createUser(newUser).then(
-                        (user) => {
-                            req.session['currentUser']={_id: user._id,username: user.username,
-                            type: user.type};
+                    userDao.createUser(newUser)
+                        .then(user => {
+                            req.session['currentUser']={_id: user._id,username: user.username, type: user.type};
                             res.sendStatus(200);
-                        }
-                    );
+                        });
                 }
                 else{
                     res.sendStatus(500);
                 }
-            }
-        );
+            });
     }
 
 
@@ -37,7 +63,7 @@ module.exports = app =>{
         userDao.findUserByCredentials(req.body)
             .then((user) => {
                 if(user == null){
-                    res.sendStatus(501);
+                    res.status(500).send({ error: "Incorrect credentials" });
                 }
                 else{
                     req.session['currentUser'] = user;
@@ -64,20 +90,20 @@ module.exports = app =>{
         userDao.findUserById(req.session['currentUser']._id).then(response =>{
             if(response.username===user.username){
                 userDao.updateUser(req.session['currentUser']._id,user).then(
-                    response=> res.sendStatus(200)
-                );
+                    response=> res.sendStatus(200));
             }
             else{
-                userDao.findUserByUserName(user.username).then(response => {
-                    if(response===null) {
-                        userDao.updateUser(req.session['currentUser']._id,user)
-                            .then(response=> res.sendStatus(200)
+                userDao.findUserByUserName(user.username).then(
+                    response => {
+                        if(response===null) {
+                            userDao.updateUser(req.session['currentUser']._id,user)
+                                .then(response=> res.sendStatus(200)
                             );
-                    }
-                    else{
-                        res.sendStatus(500);
-                    }
-                })
+                        }
+                        else{
+                            res.sendStatus(500);
+                        }
+                    })
             }
         })
     }
@@ -89,8 +115,8 @@ module.exports = app =>{
     }
     
     function findUserById(req,res) {
-        userDao.findUserById(req.session['userId']).then(
-            (user) => res.send(user)
+        userDao.findUserById(req.params['userId']).then(
+            (user) => res.json(user)
         )
     }
     

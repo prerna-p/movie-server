@@ -3,7 +3,7 @@ module.exports = app =>{
     app.get('/api/admin/user',findAllUsers);
     app.delete('/api/admin/user/:userId',deleteUser);
     app.post('/api/admin/user',updateUser);
-    app.get('/api/admin/user/favMovies', findAllUserFavMovies);
+    app.get('/api/admin/user/favMovies', findAllUsersFavMovies);
     app.get('/api/admin/allFavoriteMovies', findAllFavouriteMovies);
     app.delete('/api/admin/favoriteMovie/:favMovieId', deleteFavouriteMovie);
 
@@ -34,7 +34,7 @@ module.exports = app =>{
             .then(() => recommendationDao.deleteRec(id)
                 .then(() => fanDao.delFollower(id)
                     .then(() => fanDao.deleteFan(id)
-                        .then(() => likeDao.deleteLike(id))
+                        .then(() => likeDao.deleteLike(id)).then(() => res.sendStatus(200))
                     )
                 )
             )
@@ -57,15 +57,17 @@ module.exports = app =>{
     }
 
 
-    function findAllUserFavMovies(req,res){
+    function findAllUsersFavMovies(req,res){
         let user = req.session.currentUser;
-        if (user.type !== 'Admin') {
+        if (user === undefined) {
+            res.sendStatus(500);
+        }
+        else if (user.type !== 'Admin') {
             res.sendStatus(501);
         }
         else {
-            userDao.findAllUserFavMovies()
-                .then(users =>
-                    res.json(users))
+            userDao.findAllUsersFavMovies()
+                .then(users => res.json(users))
         }
 
     }

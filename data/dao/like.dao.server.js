@@ -9,9 +9,14 @@ function deleteFavouriteMovie(){
 
 }
 
+function deleteLike(id){
+    return likeModel.remove({user:id})
+}
+
 
 module.exports = {
     findAllFavouriteMovies,
-    deleteFavouriteMovie
+    deleteFavouriteMovie,
+    deleteLike
 
 };
