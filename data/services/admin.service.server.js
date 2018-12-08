@@ -2,7 +2,7 @@ module.exports = app =>{
 
     app.get('/api/admin/user',findAllUsers);
     app.delete('/api/admin/user/:userId',deleteUser);
-    app.post('/api/admin/user/:userId',updateUser);
+    app.post('/api/admin/user',updateUser);
     app.get('/api/admin/user/favMovies', findAllUserFavMovies);
     app.get('/api/admin/allFavoriteMovies', findAllFavouriteMovies);
     app.delete('/api/admin/favoriteMovie/:favMovieId', deleteFavouriteMovie);
