@@ -59,6 +59,7 @@ module.exports = app =>{
             poster_path: (movie.poster_path.length !== 0 ? movie.poster_path : '')
         };
 
+        let watchlist;
         if (user === undefined)
             res.sendStatus(500);
         else
