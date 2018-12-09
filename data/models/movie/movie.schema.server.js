@@ -7,6 +7,6 @@ const movieSchema = mongoose.Schema({
     releaseDate :   String,
     posterPath:     String
 
-},{collection: 'movies'})
+},{collection: 'movies'});
 
 module.exports = movieSchema;

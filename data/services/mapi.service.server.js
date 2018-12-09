@@ -39,7 +39,7 @@ module.exports = app => {
     }
 
     function searchMovie(req, res) {
-        fetch(constants.TMDB_URL + '/search/movie?query=' + req.params['movieName'] + '&api_key=' + constants.TMDB_API_KEY)
+        fetch(constants.TMDB_URL + '/search/multi?query=' + req.params['movieName'] + '&api_key=' + constants.TMDB_API_KEY)
             .then(movie => movie.json())
             .then(body => res.send(body));
     }
