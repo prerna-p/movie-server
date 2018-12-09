@@ -89,8 +89,8 @@ module.exports = app =>{
 
     function findWatchlistMovies(req,res) {
         let user = req.session.currentUser;
-        userDao.findAllWatchlistMoviesOfUser(user)
-
+        userDao.findAllWatchlistMoviesOfUser(user).then(
+            response => res.json(response));
     }
 
     function dislikeMovie(req,res) {
