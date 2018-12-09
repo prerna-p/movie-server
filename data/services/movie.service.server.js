@@ -20,8 +20,7 @@ module.exports = app =>{
         let movie = req.body;
         let newMovie = {
             title: movie.title,
-            //id: movie.id,
-            id: req.params['movieId'],
+            id: movie.id,
             release_date: movie.release_date,
             poster_path: (movie.poster_path.length !== 0 ? movie.poster_path : '')
         };
@@ -29,7 +28,7 @@ module.exports = app =>{
         if (user === undefined)
             res.sendStatus(500);
         else
-            movieDao.findMoviebyId(newMovie)
+            movieDao.findMoviebyId(newMovie.id)
                 .then(queryResult => {
                     if (queryResult === null) {
                         movieDao.createMovie(newMovie)
