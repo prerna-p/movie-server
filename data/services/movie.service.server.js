@@ -41,7 +41,8 @@ module.exports = app =>{
                             })
                     }
                     else {
-                        user.favourites.push(queryResult._doc);
+                        //user.favourites.push(queryResult._doc);
+                        user.favourites.push(newMovie);
                         userDao .updateUser(userId, user)
                             .then(() => res.json({favourite: favourite}));
                     }
