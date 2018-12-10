@@ -35,14 +35,15 @@ module.exports = app =>{
                     if (queryResult === null) {
                         movieDao.createMovie(newMovie)
                             .then((movie) => {
-                                user.favourites.push(movie);
+                                // user.favourites.push(movie);
+                                user.favourites.push(movie._doc);
                                 userDao.updateUser(userId, user)
                                     .then(() => res.json({favourite: favourite}));
                             })
                     }
                     else {
-                        //user.favourites.push(queryResult._doc);
-                        user.favourites.push(newMovie);
+                        user.favourites.push(queryResult._doc);
+                        //user.favourites.push(newMovie);
                         userDao .updateUser(userId, user)
                             .then(() => res.json({favourite: favourite}));
                     }
