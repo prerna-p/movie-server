@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 const client_heroku_url = "http://desolate-retreat-56126.herokuapp.com";
-const client_local_url = "*";
+const client_local_url = "http://localhost:3000";
 
 
 app.use(function (req, res, next) {
