@@ -12,7 +12,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 const client_heroku_url = "http://desolate-retreat-56126.herokuapp.com";
-const client_local_url = "http://localhost:3000";
+const client_local_url = "https://pickflick-movieapp.herokuapp.com/";
+
 
 
 app.use(function (req, res, next) {
