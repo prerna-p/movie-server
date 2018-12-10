@@ -9,8 +9,14 @@ function createMovie(newMovie){
     return movieModel.create(newMovie);
 }
 
+function findAllMovies(){
+    return movieModel.find();
+}
+
+
 
 module.exports = {
     findMoviebyId,
-    createMovie
+    createMovie,
+    findAllMovies
 };

@@ -7,6 +7,8 @@ module.exports = app =>{
     app.delete('/api/dislikeMovie', dislikeMovie);
     app.delete('/api/user/:userId/movie/:movieId/dislike', deleteMovieForUser);
     app.delete('/api/movie/:movieId/watchlist', removeMovieFromWatchlist);
+    app.get('/api/movie', findAllMovies);
+
 
 
     const userDao = require('../dao/user.dao.server');
@@ -114,6 +116,10 @@ module.exports = app =>{
         let user = req.session.currentUser;
         userDao.deleteUserWatchlistMovie(user._id, movie._id)
             .then(() => res.sendStatus(200))
+    }
+
+    function findAllMovies(req,res){
+        movieDao.findAllMovies().then((movies) => res.json(movies));
     }
 
 
