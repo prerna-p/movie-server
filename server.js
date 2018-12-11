@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 
 require('./data/db')()
 
+var cors = require('cors')
+const idleTimeoutSeconds = 30*60*1000;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
