@@ -36,7 +36,13 @@ app.get('/api/session/get/:name', getSession);
 app.use(session({
     resave: false,
     saveUninitialized: true,
-    secret: 'any string'
+    secret: 'any string',
+    cookie: {
+        secure : false,
+        httpOnly : false,
+        maxAge: idleTimeoutSeconds * 1000,
+    },
+    rolling: true
 }));
 
 function setSession(req, res) {
