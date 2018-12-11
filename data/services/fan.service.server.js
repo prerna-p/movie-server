@@ -3,7 +3,7 @@ const fanModel = require('../models/fan/fan.model.server');
 module.exports = app =>{
 
     app.get('/api/fan', findAllFans);
-    // app.delete('/api/fan/:fid', (req,res)=>{fanModel.remove({_id :req.params['fid'] }).then(resilt=> res.send("yoy"))});
+    app.delete('/api/fan/:fid', (req,res)=>{fanModel.remove({_id :req.params['fid'] }).then(resilt=> res.send("deleted"))});
     app.post('/api/:userId/fan/:fanId', followUser);
     app.delete('/api/:userId/fan/:fanId', unfollowUser);
     app.get('/api/:userId/follower' , findMyFollowers);
