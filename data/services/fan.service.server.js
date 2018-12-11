@@ -15,21 +15,19 @@ module.exports = app =>{
     }
 
     function followFan(req,res) {
-        let user = req.session.currentUser;
+        let user = req.session['currentUser'];
         let fanId = req.params['fanId'];
         if (user === undefined) {
             res.send("Not found");
         }
         else{
-
-            //fanDao.findFan(req.session.userId, fanId)
-            fanDao.findFan(user._id, fanId)
+            fanDao.findFan(req.session['userId'], fanId)
                 .then(results => {
                     if (results) {
                         res.send("Error");
-                    } else {
-                        //fanDao.addFollow(req.session.userId, fanId)
-                        fanDao.addFollow(user._id, fanId)
+                    }
+                    else{
+                        fanDao.addFollow(req.session['userId'], fanId)
                             .then(() => {
                                 res.sendStatus(200);
                             })
