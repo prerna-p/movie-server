@@ -22,12 +22,14 @@ module.exports = app =>{
         }
         else{
 
-            fanDao.findFan(req.session.userId, fanId)
+            //fanDao.findFan(req.session.userId, fanId)
+            fanDao.findFan(user._id, fanId)
                 .then(results => {
                     if (results) {
                         res.send("Error");
                     } else {
-                        fanDao.addFollow(req.session.userId, fanId)
+                        //fanDao.addFollow(req.session.userId, fanId)
+                        fanDao.addFollow(user._id, fanId)
                             .then(() => {
                                 res.sendStatus(200);
                             })
