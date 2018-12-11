@@ -14,8 +14,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-//const client_local_url = "http://pickflick-movieapp.herokuapp.com";
-const client_local_url = "http://localhost:3000";
+const client_local_url = "http://pickflick-movieapp.herokuapp.com";
+//const client_local_url = "http://localhost:3000";
 
 
 app.use(function (req, res, next) {
