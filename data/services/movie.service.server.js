@@ -30,24 +30,27 @@ module.exports = app =>{
         if (user === undefined)
             res.sendStatus(500);
         else
-            movieDao.findMoviebyId(newMovie.id)
-                .then(queryResult => {
-                    if (queryResult === null) {
-                        movieDao.createMovie(newMovie)
-                            .then((movie) => {
-                                // user.favourites.push(movie);
-                                user.favourites.push(movie._doc);
+
+             movieDao.findMoviebyId(movie.id)
+              .then(queryResult => {
+                     if (queryResult === null) {
+                         movieDao.createMovie(movie)
+                            .then((movie1) => {
+                                 //user.favourites.push(movie);
+                        user.favourites.push(movie1);
                                 userDao.updateUser(userId, user)
-                                    .then(() => res.json({favourite: favourite}));
-                            })
+                                .then(() => res.send({favourite: favourite}
+                                ));
+                             })
                     }
                     else {
-                        user.favourites.push(queryResult._doc);
+                        user.favourites.push(movie);
                         //user.favourites.push(newMovie);
                         userDao .updateUser(userId, user)
                             .then(() => res.json({favourite: favourite}));
                     }
                 })
+
     }
 
 
@@ -98,8 +101,13 @@ module.exports = app =>{
     }
 
     function dislikeMovie(req,res) {
+
         let movie = req.body;
         let user = req.session.currentUser;
+
+
+
+
         userDao.deleteUserFavouriteMovie(user._id, movie._id)
             .then(() => res.sendStatus(200))
 
